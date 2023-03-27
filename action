@@ -82,7 +82,7 @@ rm /header.txt
 
 
 export STATUS="$(cat doc/status.md)"
-export SLOGAN="$(gh repo view --json description --jq .description)"
+export SLOGAN="$(cat doc/slogan.md)"
 export BASICS="$(cat doc/basics.md | tr '\n' '¶')"
 export FEATURES="$(cat doc/features.md | tr '\n' '¶')"
 export INTRO="$(cat doc/intro.md)"

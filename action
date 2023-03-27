@@ -2,9 +2,11 @@
 
 echo "PWD=$PWD"
 
+git config --global --add safe.directory /github/workspace
+
 # Update environment
 apt update
-apt install -y inkscape imagemagick git gettext-base cloc jq
+apt install -y inkscape imagemagick git gettext-base cloc jq gh
 
 # Regenerate logos
 mkdir -p doc/images
@@ -30,7 +32,7 @@ echo "Title: $TITLE"
 START="$(git show -s --format=%ci "$(git rev-list --max-parents=0 HEAD)" | cut -d- -f1)"
 export START
 echo "Start: $START"
-YEAR="$(date "+%y")"
+YEAR="$(date "+%Y")"
 export YEAR
 echo "Year: $YEAR"
 

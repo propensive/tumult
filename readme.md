@@ -66,7 +66,6 @@ ${THANKS}
 
 ## Name
 
-
 ${NAME}
 
 In general, Scala One project names are always chosen with some rationale, however it is usually
@@ -75,7 +74,8 @@ catchiness, and there is no bias towards names with positive or "nice" meaningsâ
 libraries perform some quite unpleasant tasks.
 
 Names should be English words, though many are obscure or archaic, and it should be noted how
-willingly English adopts foreign words. Most are 
+willingly English adopts foreign words. Names are generally of Greek or Latin origin, and have
+often arrived in English via a romance language.
 
 ## License
 

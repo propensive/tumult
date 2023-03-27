@@ -1,0 +1,6 @@
+# action.yml
+name: 'Tumult'
+description: 'Performs actions to keep repositories tidy'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'

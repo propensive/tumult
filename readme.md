@@ -4,6 +4,8 @@
 
 # ${TITLE}
 
+__${SLOGAN}__
+
 ${INTRO}
 
 ## Features

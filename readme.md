@@ -14,7 +14,8 @@ ${FEATURES}
 
 ## Availability
 
-${TITLE} has not yet been published as a binary, though work is ongoing to fix this.
+${TITLE} has not yet been published as a binary. It is currently waiting for the
+final release of Scala 3.3.
 
 ## Getting Started
 

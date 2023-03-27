@@ -1,11 +1,53 @@
-#!/bin/sh
+#!/bin/bash
+
+echo "PWD=$PWD"
 
 apt update
 apt install -y inkscape imagemagick
 mkdir -p doc/images
 inkscape doc/logo.svg --export-filename=doc/images/2400x2400@300dpi.png --export-dpi=300 --export-width=2400 --export-height=2400 --export-background-opacity=0
 inkscape doc/logo.svg --export-filename=doc/images/1000x1000.png --export-dpi=96 --export-width=1000 --export-height=1000 --export-background-opacity=0
-convert doc/images/1000x1000.png -resize 200x200 doc/images/200x200.png
-convert doc/images/1000x1000.png -resize 128x128 doc/images/128x128.png
-convert doc/images/1000x1000.png -resize 48x48 doc/images/48x48.png
-convert doc/images/1000x1000.png -resize 16x16 doc/images/16x16.png
+convert doc/images/1000x1000.png -resize 200x200 -strip doc/images/200x200.png
+convert doc/images/1000x1000.png -resize 128x128 -strip doc/images/128x128.png
+convert doc/images/1000x1000.png -resize 48x48 -strip doc/images/48x48.png
+convert doc/images/1000x1000.png -resize 16x16 -strip doc/images/16x16.png
+convert doc/images/1000x1000.png -background none -gravity center -resize 620x620 -extent 1280x640 -strip doc/images/github.png
+convert doc/images/github.png /github.png -background transparent -layers flatten -strip doc/images/github.png
+
+# Update headers
+MOD="$(cat fury | grep project | cut -d' ' -f2)"
+export MOD
+echo "Module: $MOD"
+ID="$(echo "$MOD" | cut -d'/' -f2)"
+export ID
+echo "ID: $ID"
+TITLE="$(tr '[:lower:]' '[:upper:]' <<< "${ID:0:1}")${ID:1}"
+export TITLE
+echo "Title: $TITLE"
+START="$(git show -s --format=%ci "$(git rev-list --max-parents=0 HEAD)" | cut -d- -f1)"
+export START
+echo "Start: $START"
+YEAR="$(date "+%y")"
+export YEAR
+echo "Year: $YEAR"
+
+if [[ "$START" = "$YEAR" ]]
+then COPYRIGHT="$START"
+else COPYRIGHT="${START}-$(date +%y)"
+fi
+export COPYRIGHT
+
+VERSION="$(git describe --tags --abbrev=0 2> /dev/null || echo '[unreleased]')"
+export VERSION
+
+TMP=/tmp.scala
+cat /header.txt | envsubst > /header.tmp
+mv /header.tmp /header.txt
+
+for FILE in src/**/*.scala
+do
+  echo "Updating header in $FILE"
+  cat /header.txt > "${TMP}"
+  sed '/\(package\|object\|import\)/,$!d' "${FILE}" >> "${TMP}" && mv "${TMP}" "${FILE}"
+done
+rm /header.txt

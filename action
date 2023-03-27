@@ -2,11 +2,12 @@
 
 echo "PWD=$PWD"
 
-git config --global --add safe.directory "*"
 
 # Update environment
 apt update
 apt install -y inkscape imagemagick git gettext-base cloc jq gh
+
+git config --global --add safe.directory "*"
 
 # Regenerate logos
 mkdir -p doc/images

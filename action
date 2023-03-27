@@ -2,8 +2,11 @@
 
 echo "PWD=$PWD"
 
+# Update environment
 apt update
-apt install -y inkscape imagemagick
+apt install -y inkscape imagemagick git gettext-base
+
+# Regenerate logos
 mkdir -p doc/images
 inkscape doc/logo.svg --export-filename=doc/images/2400x2400@300dpi.png --export-dpi=300 --export-width=2400 --export-height=2400 --export-background-opacity=0
 inkscape doc/logo.svg --export-filename=doc/images/1000x1000.png --export-dpi=96 --export-width=1000 --export-height=1000 --export-background-opacity=0
@@ -51,3 +54,25 @@ do
   sed '/\(package\|object\|import\)/,$!d' "${FILE}" >> "${TMP}" && mv "${TMP}" "${FILE}"
 done
 rm /header.txt
+
+# Update labels
+gh label create duplicate      -f -d 'An equivalent issue already exists'                      -c '#437a89'
+gh label create forsaken       -f -d 'This issue will not be fixed'                            -c '#7d5baf'
+gh label create severe         -f -d 'Has a significant impact on many users'                  -c '#b65ea1'
+gh label create bug            -f -d 'Describes something not working as intended'             -c '#ef6092'
+gh label create invalid        -f -d 'Something does not seem right about this'                -c '#fc6f74'
+gh label create 'help wanted'  -f -d 'External assistance is needed'                           -c '#fc8b72'
+gh label create 'code quality' -f -d 'Concerns the standard of code rather than functionality' -c '#fca054'
+gh label create question       -f -d 'Looking for an answer'                                   -c '#fcb536'
+gh label create enhancement    -f -d 'An improvement to existing functionality'                -c '#fcd085'
+gh label create beginner       -f -d 'A good introduction for newcomers'                       -c '#e6dd86'
+gh label create minor          -f -d 'Has only a small impact for the majority of users'       -c '#d0e993'
+gh label create release        -f -d 'Relates to the bureaucracy of releasing the project'     -c '#b2ddbe'
+gh label create api            -f -d 'Relates to the API design'                               -c '#93d0e9'
+gh label create testing        -f -d 'Concerns how the project is verified'                    -c '#81b6cc'
+gh label create performance    -f -d 'Relates to the efficiency or speed of an operation'      -c '#6f9caf'
+gh label create docs           -f -d 'Improvements or additions to documentation'              -c '#5d8292'
+gh label create core           -f -d 'Describes core required functionality'                   -c '#4a6875'
+gh label delete 'good first issue' --confirm
+gh label delete wontfix --confirm
+gh label delete documentation --confirm

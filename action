@@ -87,6 +87,7 @@ export BASICS="$(cat doc/basics.md | tr '\n' '¶')"
 export FEATURES="$(cat doc/features.md | tr '\n' '¶')"
 export INTRO="$(cat doc/intro.md)"
 export NAME="$(cat doc/name.md)"
+export LOGO="$(cat doc/logo.md)"
 export THANKS="$(cat doc/thanks 2> /dev/null || echo '')"
 export LOC=$(cloc src --quiet --json | jq .Scala.code)
 cat /readme.md | envsubst | tr '¶' '\n' > readme.md

@@ -42,8 +42,7 @@ then COPYRIGHT="$START"
 else COPYRIGHT="${START}-$(date +%y)"
 fi
 export COPYRIGHT
-
-VERSION="$(git describe --tags --abbrev=0 2> /dev/null || echo '[unreleased]')"
+VERSION="$(git describe --tags $(git rev-list --tags --max-count=1) 2> /dev/null || echo '[unreleased]')"
 export VERSION
 
 TMP=/tmp.scala
@@ -94,4 +93,3 @@ export LOC=$(cloc src --quiet --json | jq .Scala.code)
 cat /readme.md | envsubst | tr '¶' '\n' > readme.md
 cat /contributing.md | envsubst | tr '¶' '\n' > contributing.md
 cp /license.md license.md
-

@@ -90,6 +90,7 @@ export LOGO="$(cat doc/logo.md)"
 export THANKS="$(cat doc/thanks 2> /dev/null || echo '')"
 export AVAILABILITY="$(cat doc/availability.md | tr '\n' '¶')"
 export LOC=$(cloc src --quiet --json | jq .Scala.code)
+echo "$LOC" > doc/lines.md
 cat /readme.md | envsubst | tr '¶' '\n' > readme.md
 cat /contributing.md | envsubst | tr '¶' '\n' > contributing.md
 cp /license.md license.md

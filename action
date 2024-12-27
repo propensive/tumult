@@ -5,7 +5,9 @@ echo "PWD=$PWD"
 
 # Update environment
 apt update
-apt install -y inkscape imagemagick git gettext-base cloc jq gh
+apt install -y locales inkscape imagemagick git gettext-base cloc jq gh
+locale-gen en_US.UTF-8
+update-locale LANG=en_US.UTF-8
 
 git config --global --add safe.directory "*"
 

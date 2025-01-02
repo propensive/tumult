@@ -44,6 +44,7 @@ then COPYRIGHT="$START"
 else COPYRIGHT="${START}-$(date +%y)"
 fi
 export COPYRIGHT
+git fetch --depth=0 --tags
 git rev-list --tags --max-count=1
 HASH="$(git rev-list --tags --max-count=1)"
 echo "Hash: $HASH"

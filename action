@@ -44,7 +44,12 @@ then COPYRIGHT="$START"
 else COPYRIGHT="${START}-$(date +%y)"
 fi
 export COPYRIGHT
-VERSION="$(git describe --tags $(git rev-list --tags --max-count=1) 2> /dev/null || echo '[unreleased]')"
+git rev-list --tags --max-count=1
+HASH="$(git rev-list --tags --max-count=1)"
+echo "Hash: $HASH"
+git describe --tags "$HASH"
+VERSION="$(git describe --tags "$HASH" 2> /dev/null || echo '[unreleased]')"
+echo "Version: $VERSION"
 export VERSION
 
 TMP=/tmp.scala
